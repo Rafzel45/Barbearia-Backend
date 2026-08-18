@@ -43,8 +43,8 @@ app.post('/salvar-agendamento', async (req, res)=>{
         
     } catch (err) {
         console.error('Erro ao processar o agendamento', err);
-        res.status(500).send({  message> 'Erro interno ao salvar o agendamento'});
-    }  finally{
+        res.status(500).send({  message: 'Erro interno ao salvar o agendamento'});
+    } finally{
         if(connection){
             connection.end();
         }
