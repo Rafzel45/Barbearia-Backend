@@ -39,8 +39,8 @@ app.post('/salvar-agendamento', async (req, res)=>{
             const mensagem = `Ola ${nome},
             aguardamos voce para realizar o seu procedimento ${procedimento} no dia ${dia} as ${hora} horas.`;
 
-            res.status(200).send((message: mensagem );
-        )
+            res.status(200).send({message: mensagem });
+        
     } catch (err) {
         console.error('Erro ao processar o agendamento', err);
         res.status(500).send({  message> 'Erro interno ao salvar o agendamento'});
