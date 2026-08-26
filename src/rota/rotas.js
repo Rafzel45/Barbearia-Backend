@@ -4,11 +4,9 @@ import dbConfig from '../config/database.js';
 
 const router = express.Router();
 
-// POST - Salvar agendamento
 router.post('/agendamentos', async (req, res) => {
   const { nome, procedimento, dia, hora } = req.body;
 
-  // Verifica se todos os dados foram enviados
   if (!nome || !procedimento || !dia || !hora) {
     return res.status(400).json({
       message: 'Nome, procedimento, dia e hora são obrigatórios.'
@@ -57,8 +55,6 @@ router.post('/agendamentos', async (req, res) => {
   }
 });
 
-
-// GET - Buscar todos os agendamentos
 router.get('/agendamentos', async (req, res) => {
   let connection;
 

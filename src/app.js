@@ -1,5 +1,5 @@
 import express from 'express';
-import agendamentoRoutes from './routes/agendamento.js';
+import agendamentoRoutes from './rota/rotas.js';
 
 const app = express();
 
