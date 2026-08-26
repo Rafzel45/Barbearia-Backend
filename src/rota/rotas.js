@@ -4,12 +4,13 @@ import dbConfig from '../config/database.js';
 
 const router = express.Router();
 
+// POST - Criar agendamento
 router.post('/agendamentos', async (req, res) => {
-  const { nome, procedimento, dia, hora } = req.body;
+  const { nome, procedimento, data_hora } = req.body;
 
-  if (!nome || !procedimento || !dia || !hora) {
+  if (!nome || !procedimento || !data_hora) {
     return res.status(400).json({
-      message: 'Nome, procedimento, dia e hora são obrigatórios.'
+      message: 'Nome, procedimento e data_hora são obrigatórios.'
     });
   }
 
@@ -21,23 +22,22 @@ router.post('/agendamentos', async (req, res) => {
     console.log('Conectado ao banco MySQL');
 
     const insertQuery = `
-      INSERT INTO agendamento (nome, procedimento, dia, hora)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO agendamentos (nome, procedimento, data_hora)
+      VALUES (?, ?, ?)
     `;
 
     const [result] = await connection.execute(insertQuery, [
       nome,
       procedimento,
-      dia,
-      hora
+      data_hora
     ]);
 
-    console.log(`Agendamento salvo com sucesso! ID: ${result.insertId}`);
-
-    const mensagem = `Olá ${nome}, aguardamos você para realizar o seu procedimento ${procedimento} no dia ${dia} às ${hora} horas.`;
+    console.log(
+      `Agendamento salvo com sucesso! ID: ${result.insertId}`
+    );
 
     res.status(201).json({
-      message: mensagem,
+      message: 'Agendamento salvo com sucesso!',
       id: result.insertId
     });
 
@@ -55,6 +55,8 @@ router.post('/agendamentos', async (req, res) => {
   }
 });
 
+
+// GET - Buscar agendamentos
 router.get('/agendamentos', async (req, res) => {
   let connection;
 
@@ -62,7 +64,7 @@ router.get('/agendamentos', async (req, res) => {
     connection = await mysql.createConnection(dbConfig);
 
     const [rows] = await connection.execute(
-      'SELECT * FROM agendamento'
+      'SELECT * FROM agendamentos'
     );
 
     res.status(200).json(rows);
