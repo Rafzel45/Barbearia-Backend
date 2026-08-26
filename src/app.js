@@ -1,16 +1,12 @@
-
 import express from 'express';
-import cors from 'cors';
-import agendamentosRoutes from './rota/rotas.js';
+import agendamentoRoutes from './routes/agendamento.js';
 
 const app = express();
-const PORT = 3000;
 
 app.use(express.json());
-app.use(cors());
 
-app.use('/', agendamentosRoutes);
+app.use('/', agendamentoRoutes);
 
-app.listen(PORT, () => {
-  console.log(` Servidor rodando na porta ${PORT}`);
+app.listen(3000, () => {
+  console.log('Servidor rodando em http://localhost:3000');
 });
