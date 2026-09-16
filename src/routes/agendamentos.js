@@ -18,7 +18,6 @@ router.post('/agendamentos', async (req, res) => {
 
   try {
     connection = await mysql.createConnection(dbConfig);
-
     console.log('Conectado ao banco MySQL');
 
     const insertQuery = `
@@ -32,9 +31,7 @@ router.post('/agendamentos', async (req, res) => {
       data_hora
     ]);
 
-    console.log(
-      `Agendamento salvo com sucesso! ID: ${result.insertId}`
-    );
+    console.log(`Agendamento salvo com sucesso! ID: ${result.insertId}`);
 
     res.status(201).json({
       message: 'Agendamento salvo com sucesso!',
@@ -43,7 +40,6 @@ router.post('/agendamentos', async (req, res) => {
 
   } catch (err) {
     console.error('Erro ao processar o agendamento:', err);
-
     res.status(500).json({
       message: 'Erro interno ao salvar o agendamento'
     });
@@ -54,7 +50,6 @@ router.post('/agendamentos', async (req, res) => {
     }
   }
 });
-
 
 // GET - Buscar agendamentos
 router.get('/agendamentos', async (req, res) => {
@@ -71,7 +66,6 @@ router.get('/agendamentos', async (req, res) => {
 
   } catch (err) {
     console.error('Erro ao buscar agendamentos:', err);
-
     res.status(500).json({
       message: 'Erro ao buscar agendamentos'
     });

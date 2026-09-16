@@ -1,19 +1,18 @@
-const API_URL = "http://localhost:3000"; // Ajuste para a porta onde seu servidor Express está rodando
+import express from 'express';
+import cors from 'cors';
+import agendamentosRoutes from './routes/agendamentos.js';
 
-export async function salvarAgendamento(dadosAgendamento) {
-    const response = await fetch(`${API_URL}/agendamentos`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dadosAgendamento),
-    });
+const app = express();
+const PORT = 3000;
 
-    const result = await response.json();
+// Middlewares
+app.use(cors());
+app.use(express.json());
 
-    if (!response.ok) {
-        throw new Error(result.message || "Erro ao salvar agendamento");
-    }
+// Rotas
+app.use(agendamentosRoutes);
 
-    return result;
-}
+// Inicialização do Servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
