@@ -1,12 +1,19 @@
-import express from 'express';
-import agendamentoRoutes from './rota/rotas.js';
+const API_URL = "http://localhost:3000"; // Ajuste para a porta onde seu servidor Express está rodando
 
-const app = express();
+export async function salvarAgendamento(dadosAgendamento) {
+    const response = await fetch(`${API_URL}/agendamentos`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosAgendamento),
+    });
 
-app.use(express.json());
+    const result = await response.json();
 
-app.use('/', agendamentoRoutes);
+    if (!response.ok) {
+        throw new Error(result.message || "Erro ao salvar agendamento");
+    }
 
-app.listen(3000, () => {
-  console.log('Servidor rodando em http://localhost:3000');
-});
+    return result;
+}
